@@ -1,1 +1,1 @@
-# sound_detection_localization
+# Exercise: Sound Detection and Localization
