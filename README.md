@@ -41,7 +41,7 @@ Because we were given the source sweep, another approach to detect its onset wou
 
 #### Pairwise offset estimation (TDOA)
 
-Segmenting the signals with the output of the activity detector, this algorithm, given in `gcc_phat()`, computes the pairwise time difference of arrival of the signals in each channel, using one microphone as the reference for the other two. The time difference is derived from the maximum of the generalized cross-correlation phase transform (GCC-PHAT), computed over the entire stationary event frame.
+Segmenting the signals with the output of the activity detector, this algorithm, given in `gcc_phat()`, computes the pairwise time difference of arrival of the signals in each channel, using one microphone as the reference for the other two. The time difference is derived from the maximum of the generalized cross-correlation phase transform, or GCC-PHAT (Knapp and Carter), computed over the entire stationary event frame.
 
 #### Least squares solver
 
