@@ -14,7 +14,23 @@ To run the script, call
 
 If the `-f` or `--filepath` argument is omitted, the script will default to running on `resources/evaluation-recording.wav`. 
 
-The input file is assumed to be a 3-channel sample-synchronized wav file with stationary sources, recorded with the microphone configuration shown below. The code has only been tested on examples in the resources/ directory. Other recordings from the given microphone configuration (e.g. non-stationary examples) may produce unexpected results.
+The input file is assumed to be a 3-channel sample-synchronized wav file with stationary sources, recorded with the microphone configuration shown in the *Recording Setup* section below. The code has only been tested on examples in the resources/ directory. Other recordings from the given microphone configuration (e.g. non-stationary examples) may produce unexpected results.
+
+## Development notes
+
+### Future work
+
+### Time spent
+
+I spent 8-9 hours on the exercise, roughly following the example breakdown given in the exercise assignment: 2h literature review, 1 hour formalizing the exercise/math on paper, 4h algorithm development, 1h code cleanup, 1h documentation. In the first 2 hours I refreshed my memory on the topic by accessing the Vincent, et. al book, reading some of the papers it references, and browsing online (wikipedia, github, etc). During the documentation process I revisited the book to look into some more advanced techniques, such as manifold learning.
+
+### Reference materials
+
+- Emmanuel Vincent, Tuomas Virtanen, and Sharon Gannot (Eds.). (2018). Audio Source Separation and Speech Enhancement. Wiley.
+
+### Repositories viewed/reviewed
+
+- TDOA by Yihui Xiong (@xiongyihui): https://github.com/xiongyihui/tdoa
 
 ## Recording Setup
 
