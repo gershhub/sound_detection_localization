@@ -1,6 +1,6 @@
 # Exercise: Sound Detection and Localization
 
-This project contains an implementation of an algorithm to detect onsets and spatially localise 2 stationary sound events within a 3-channel audio file recorded by 3 sample-synchronized microphones in a known configuration. Onsets are estimated using a simple spectral energy threshold metric over a sliding window. Event locations are estimated using TDOA derived from the generalized cross-correlation phase transform (GCC-PHAT), computed over single static event frames extracted by the event detector. 
+This project contains an implementation of an algorithm to detect onsets and spatially localise 2 stationary sound events within a 3-channel audio file recorded by 3 sample-synchronized microphones in a known configuration, shown below. Onsets are estimated using a simple spectral energy threshold metric over a sliding window. Event locations are estimated using TDOA derived from the generalized cross-correlation phase transform (GCC-PHAT), computed over single static event frames extracted by the event detector. 
 
 ## Code Contents
 
