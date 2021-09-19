@@ -103,7 +103,7 @@ if __name__ == '__main__':
         "--filepath", 
         type=str, 
         help="Path to 3-channel wav file",
-        required=True)
+        default='resources/evaluation-recording.wav')
     args = parser.parse_args()
 
     # read wav files
@@ -117,6 +117,8 @@ if __name__ == '__main__':
 
     # assignment of microphones as reference or measurement, can be swapped around
     # assignments index into the microphone positions array above
+    # we could easily run through all combinations of these to improve the result
+    # tests indicate the same outcome for the evaluation audio, so this will do for now
     ref = 1
     m1 = 0
     m2 = 2
