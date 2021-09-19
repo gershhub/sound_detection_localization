@@ -4,9 +4,11 @@ This project contains an implementation of an algorithm to detect onsets and spa
 
 ## Code Contents
 
-The project contains two code files: a python notebook `exercise.ipynb` and a python script `exercise.py`. The script depends on numpy, scipy, soundfile, and argparse. The notebook imports numpy, scipy, soundfile, and matplotlib. The code has been tested with Python 3.9.7, and is expected to work with earlier versions. The `resources/` directory contains audio files for evalation and testing.
+The project contains two code files: a python notebook `exercise.ipynb` and a python script `exercise.py`. The script imports numpy, scipy, soundfile, and argparse. The notebook imports numpy, scipy, soundfile, and matplotlib. The notebook performs the exact same operations as the script, but additionally plots the hyperbolas. The code has been tested with Python 3.9.7, and is expected to work with other versions. The `resources/` directory contains audio files for evalation and testing.
 
 ## Instructions
+
+Install all non-standard dependencies in your python environment: numpy, scipy, soundfile.
 
 To run the script, call
 
@@ -16,9 +18,34 @@ If the `-f` or `--filepath` argument is omitted, the script will default to runn
 
 The input file is assumed to be a 3-channel sample-synchronized wav file with stationary sources, recorded with the microphone configuration shown in the *Recording Setup* section below. The code has only been tested on examples in the resources/ directory. Other recordings from the given microphone configuration (e.g. non-stationary examples) may produce unexpected results.
 
+Results will be printed to stdout. 
+
 ## Development notes
 
-### Future work
+    +----------+     +----------+     +-----------------+     .~~~~.
+    |          |     |          |     |                 |     i====i_
+    | Activity | --> | GCC-PHAT | --> | Least squares   | --> |cccc|_) 
+    | Detector |     | TDOA     |     | solver (fsolve) |     |cccc| 
+    |          |     |          |     |                 |     `-==-'
+    +----+-----+     +----------+     +-----------------+     
+
+The solution consists of three modular steps: 
+
+#### Activity detection
+
+In this step, we estimate the onset and length (in samples) of each of the two audio events in the recording. A simple algorithm, named `pseudo_vad()`, slides a 1/4 second non-overlapping window over the recording. For each window, the FFT is computed. From the FFT signal, a ratio between the energy in a given band (by default from 100Hz-3000Hz) and the total energy is calculated. If this ratio exceeds a threshold, an onset is recorded.
+
+Once an event has been detected, the algorithm jumps forward by two window lengths. This is a simple hysteresis designed to ignore short pauses in speech. If an event is detected in the subsequent window, the algorithms jumps forward again, continuing until no event is detected, at which point the end of the event is marked as one window behind the current starting sample and the loop resumes sliding forward one window length at a time.
+
+#### Pairwise offset estimation (TDOA)
+
+Segmenting the signals with the output of the activity detector, this algorithm, given in `gcc_phat()`, computes the pairwise time difference of arrival of the signals in each channel, using one microphone as the reference for the other two. The time difference is derived from the maximum of the generalized cross-correlation phase transform (GCC-PHAT), computed over the entire stationary event frame.
+
+#### Least squares solver
+
+Using the results of the offset estimation, a solver finds the intersection of two hyperbolas corresponding to the location of the source. This step takes place in the function `hypers()`. The equations are derived from the euclidean distances between each microphone (xm1,ym1),(xm2,ym2),(xref,yref) and the source (x,y), along with the time differences from the previous step multiplied by the speed of sound. Thanks to the solver, we don't have to make the polynomial equations especially human-readable, but the terms are broken out in the function for clarity.
+
+### Future work / real-world deployment
 
 ### Time spent
 
