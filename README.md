@@ -47,11 +47,15 @@ Segmenting the signals with the output of the activity detector, this algorithm,
 
 Using the results of the offset estimation, a solver finds the intersection of two hyperbolas corresponding to the location of the source. This step takes place in the function `hypers()`. The equations are derived from the euclidean distances between each microphone (xm1,ym1),(xm2,ym2),(xref,yref) and the source (x,y), along with the time differences from the previous step multiplied by the speed of sound. Thanks to the solver, we don't have to make the polynomial equations especially human-readable, but the terms are broken out in the function for clarity.
 
+For the purposes of this exercise, I did not solve the system for each pair and take the mean outcome of all three combinations. This additional step would in principle reduce noise. Ultimately, for the given audio, I got the same outcome when I treated the center microphone as the single reference.
+
 ### Future work / real-world deployment
 
 There are numerous ways to solve this problem, many of them much more sophisticated than the solution given. Given a high SNR, the cross-correlation solution should be adequate for a stationary source in both far ﬁeld and near ﬁeld scenarios. However, this approach breaks down with weak sources.
 
-For weak sources, another technique would be to perform a grid search of hypothetical source positions, delaying and summing each channel to make an acoustic 'heatmap' of the power in the combined signal, then maximizing the map to find the source location. This is known as the Steered-Response Power Phase Transform (SRP-PHAT). More solutions are given in Vincent, et al. chapter 4.3.  
+For weak sources, another technique would be to perform a grid search of hypothetical source positions, delaying and summing each channel to make an acoustic 'heatmap' of the power in the combined signal, then maximizing the map to find the source location. This is known as the Steered-Response Power Phase Transform (SRP-PHAT). More solutions are given in Vincent, et al. chapter 4.3. 
+
+Because a clean sweep example was provided, I got to thinking about more modern approaches under the rubric of 'dictionary based solutions' and/or, with more data, manifold learning, both of which take room properties into account as constraints. Several examples of both are given in Vincent.
 
 ### Time spent
 
