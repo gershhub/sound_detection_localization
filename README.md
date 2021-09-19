@@ -47,9 +47,9 @@ Segmenting the signals with the output of the activity detector, this algorithm,
 
 Using the results of the offset estimation, a solver finds the intersection of two hyperbolas corresponding to the location of the source. This step takes place in the function `hypers()`. The equations are derived from the euclidean distances between each microphone (xm1,ym1),(xm2,ym2),(xref,yref) and the source (x,y), along with the time differences from the previous step multiplied by the speed of sound. Thanks to the solver, we don't have to make the polynomial equations especially human-readable. Here, the terms are broken out for clarity:
 
-<img src="https://render.githubusercontent.com/render/math?math=r_{ref}^2 = (x_{ref}-x)^2 %2B (y_{ref}-x)^2">
-<img src="https://render.githubusercontent.com/render/math?math=r_{m1}^2 = (x_{m1}-x)^2 %2B (y_{m1}-x)^2">
-<img src="https://render.githubusercontent.com/render/math?math=r_{m2}^2 = (x_{m2}-x)^2 %2B(y_{m2}-x)^2">
+<img src="https://render.githubusercontent.com/render/math?math=r_{ref} = \sqrt{(x_{ref}-x)^2 %2B (y_{ref}-x)^2}">
+<img src="https://render.githubusercontent.com/render/math?math=r_{m1} = \sqrt{(x_{m1}-x)^2 %2B (y_{m1}-x)^2}">
+<img src="https://render.githubusercontent.com/render/math?math=r_{m2} = \sqrt{(x_{m2}-x)^2 %2B(y_{m2}-x)^2}">
 <img src="https://render.githubusercontent.com/render/math?math=\delta_{m1} = c * \tau_{m1}">
 <img src="https://render.githubusercontent.com/render/math?math=\delta_{m2} = c * \tau_{m2}">
 
@@ -59,7 +59,7 @@ where r refers to the euclidean distance, τ to the time differences of arrival,
 <img src="https://render.githubusercontent.com/render/math?math=\delta_{m2}^2%2B2*\delta_{m2}*r_{ref}%2Br_{ref}^2-r_{m2}=0">
 
 
-For the purposes of this exercise, I did not solve the system for each pair and take the mean outcome of all three combinations. This additional step would in principle reduce noise. Ultimately, for the given audio, I got the same outcome when I treated the center microphone as the single reference.
+For the purposes of this exercise, I did not solve the system for each microphone pair and take the mean outcome of all three combinations. This additional step would in principle reduce noise. Ultimately, for the given audio, I got nearly the same outcome when I treated the center microphone as the single reference, and decided to keep it simple.
 
 ### Future work / real-world deployment
 
