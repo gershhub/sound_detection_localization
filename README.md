@@ -22,12 +22,12 @@ Results will be printed to stdout.
 
 ## Development notes
 
-    +----------+     +----------+     +-----------------+     .~~~~.
-    |          |     |          |     |                 |     i====i_
-    | Activity | --> | GCC-PHAT | --> | Least squares   | --> |cccc|_) 
-    | Detector |     | TDOA     |     | solver (fsolve) |     |cccc| 
-    |          |     |          |     |                 |     `-==-'
-    +----+-----+     +----------+     +-----------------+     
+    +----------+     +----------+     +----------+     .~~~~.
+    |          |     |          |     |          |     i====i_
+    | Activity | --> | GCC-PHAT | --> | Solver   | --> |cccc|_) 
+    | Detector |     | TDOA     |     | (fsolve) |     |cccc| 
+    |          |     |          |     |          |     `-==-'
+    +----------+     +----------+     +----------+     
 
 The solution consists of three modular steps: 
 
@@ -43,7 +43,7 @@ Because we were given the source sweep, another approach to detect its onset wou
 
 Segmenting the signals with the output of the activity detector, this algorithm, given in `gcc_phat()`, computes the pairwise time difference of arrival of the signals in each channel, using one microphone as the reference for the other two. The time difference is derived from the maximum of the generalized cross-correlation phase transform, or GCC-PHAT (Knapp and Carter), computed over the entire stationary event frame.
 
-#### Least squares solver
+#### Solver
 
 Using the results of the offset estimation, a solver finds the intersection of two hyperbolas corresponding to the location of the source. This step takes place in the function `hypers()`. The equations are derived from the euclidean distances between each microphone (xm1,ym1),(xm2,ym2),(xref,yref) and the source (x,y), along with the time differences from the previous step multiplied by the speed of sound. Thanks to the solver, we don't have to make the polynomial equations especially human-readable. Here, the terms are broken out for clarity:
 
