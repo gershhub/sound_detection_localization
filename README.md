@@ -67,7 +67,7 @@ I spent 8-9 hours on the exercise, roughly following the example breakdown given
 
 ### Repositories viewed/reviewed
 
-- TDOA by Yihui Xiong (@xiongyihui): https://github.com/xiongyihui/tdoa
+- TDOA by Yihui Xiong (@xiongyihui), in particular the GCC-PHAT implementation: https://github.com/xiongyihui/tdoa
 
 ## Recording Setup
 
