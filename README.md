@@ -37,6 +37,8 @@ In this step, we estimate the onset and length (in samples) of each of the two a
 
 Once an event has been detected, the algorithm jumps forward by two window lengths. This is a simple hysteresis designed to ignore short pauses in speech. If an event is detected in the subsequent window, the algorithms jumps forward again, continuing until no event is detected, at which point the end of the event is marked as one window behind the current starting sample and the loop resumes sliding forward one window length at a time.
 
+Because we were given the source sweep, another approach to detect its onset would have been a matched filter. Ultimately, the energy-based detector was sufficient for both events.
+
 #### Pairwise offset estimation (TDOA)
 
 Segmenting the signals with the output of the activity detector, this algorithm, given in `gcc_phat()`, computes the pairwise time difference of arrival of the signals in each channel, using one microphone as the reference for the other two. The time difference is derived from the maximum of the generalized cross-correlation phase transform (GCC-PHAT), computed over the entire stationary event frame.
@@ -46,6 +48,10 @@ Segmenting the signals with the output of the activity detector, this algorithm,
 Using the results of the offset estimation, a solver finds the intersection of two hyperbolas corresponding to the location of the source. This step takes place in the function `hypers()`. The equations are derived from the euclidean distances between each microphone (xm1,ym1),(xm2,ym2),(xref,yref) and the source (x,y), along with the time differences from the previous step multiplied by the speed of sound. Thanks to the solver, we don't have to make the polynomial equations especially human-readable, but the terms are broken out in the function for clarity.
 
 ### Future work / real-world deployment
+
+There are numerous ways to solve this problem, many of them much more sophisticated than the solution given. Given a high SNR, the cross-correlation solution should be adequate for a stationary source in both far ﬁeld and near ﬁeld scenarios. However, this approach breaks down with weak sources.
+
+For weak sources, another technique would be to perform a grid search of hypothetical source positions, delaying and summing each channel to make an acoustic 'heatmap' of the power in the combined signal, then maximizing the map to find the source location. This is known as the Steered-Response Power Phase Transform (SRP-PHAT). More solutions are given in Vincent, et al. chapter 4.3.  
 
 ### Time spent
 
